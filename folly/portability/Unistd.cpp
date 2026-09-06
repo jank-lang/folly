@@ -286,8 +286,6 @@ int lockf(int fd, int cmd, off_t len) {
   return _locking(fd, cmd, len);
 }
 
-#ifdef __MINGW64__
-#else
 off_t lseek(int fh, off_t off, int orig) {
   return _lseek(fh, off, orig);
 }
@@ -295,7 +293,6 @@ off_t lseek(int fh, off_t off, int orig) {
 off64_t lseek64(int fh, off64_t off, int orig) {
   return _lseeki64(fh, static_cast<int64_t>(off), orig);
 }
-#endif
 
 int rmdir(const char* path) {
   return _rmdir(path);
@@ -408,10 +405,6 @@ int truncate(const char* path, off_t len) {
     return -1;
   }
   return _close(fd) ? -1 : 0;
-}
-
-int unlink(const char *path) {
-  return _unlink(path);
 }
 
 int usleep(unsigned int ms) {
